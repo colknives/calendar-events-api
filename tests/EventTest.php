@@ -26,4 +26,21 @@ class EventTest extends TestCase
             'event'
         ]);
     }
+
+    /**
+     * @test Should be able to retrieve events in a given month
+     *
+     * @return void
+     */
+    public function testShouldBeAbleToRetrieveEvent()
+    {
+        $event = factory(Event::class, 5)->create();
+        
+        $response = $this->get('event/list?month=august');
+        $response->assertResponseStatus(200);
+        $response->seeJsonStructure([
+            'message',
+            'events'
+        ]);
+    }
 }

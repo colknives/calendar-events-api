@@ -12,3 +12,4 @@
 */
 
 $router->post('event/save', ["as" => "event.save", "uses" => "EventController@save"]);
+$router->get('event/list', ["as" => "event.list", "uses" => "EventController@list"]);

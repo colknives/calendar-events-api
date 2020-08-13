@@ -11,7 +11,7 @@ class CalendarEventService extends AbstractBaseService implements CalendarEventI
     protected $eventRepository;
 
     /**
-     * UserService constructor
+     * CalendarEventService constructor
      *
      * @param Request $request
      * @param EventRepository $eventRepository
@@ -27,12 +27,22 @@ class CalendarEventService extends AbstractBaseService implements CalendarEventI
     }
 
     /**
-     * Create User Service
+     * Create Event Service
      *
      * @return object
      */
     public function createEvent()
     {
         return (new CreateEvent($this->request, $this->eventRepository))->handle()->response;
+    }
+
+    /**
+     * Get Events Service
+     *
+     * @return object
+     */
+    public function getEvents()
+    {
+        return (new GetEvents($this->request, $this->eventRepository))->handle()->response;
     }
 }

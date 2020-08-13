@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
 use App\Models\Event as Model;
 
 class EventRepository {
@@ -48,5 +49,23 @@ class EventRepository {
     public function update(Model $model, array $data)
     {
         return $model->update($data);
+    }
+
+    /**
+     * Get events list
+     * 
+     * @param string month
+     * @return Model
+     */
+    public function getEventlist($month = null)
+    {
+        $query = $this->model;
+
+        if( $month ){
+            $month = Carbon::parse($month)->format('m');
+            $query = $query->whereMonth('from', $month);
+        }
+
+        return $query->get();
     }
 }
