@@ -25,7 +25,5 @@ class EventTest extends TestCase
             'message',
             'event'
         ]);
-
-
     }
 }

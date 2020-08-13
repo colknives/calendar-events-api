@@ -3,17 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\CalendarEvent\CalendarEventInterface as CalendarEventService;
+use App\Http\Resources\Collection\EventCollection;
+use App\Http\Resources\Event as EventResource;
 
-class EventController extends Controller
+class EventController extends AbstractBaseController
 {
+
+    protected $eventService;
+
     /**
      * Event controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(CalendarEventService $eventService)
     {
-        //
+        $this->eventService = $eventService;
     }
 
     /**
@@ -30,9 +36,14 @@ class EventController extends Controller
             'to' => 'required'
         ]);
 
-        dd('hey');
+        $create = $this->eventService->createEvent();
 
-        // $event = $this->eventService->create();
+        //Prepare resource
+        $details = ( $create->event )? new EventResource($create->event) : null;
 
+        return response()->json([
+            "message" => $create->message,
+            "event" => $details
+        ], $create->status);
     }
 }

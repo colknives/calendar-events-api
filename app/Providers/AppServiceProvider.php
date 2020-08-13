@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Services\CalendarEvent\CalendarEventInterface;
+use App\Services\CalendarEvent\CalendarEventService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,6 +15,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(CalendarEventInterface::class, CalendarEventService::class);
     }
 }
