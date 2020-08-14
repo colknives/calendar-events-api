@@ -12,7 +12,7 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'uuid', 'event_name', 'from', 'to', 'specific_days', 'color'
+        'uuid', 'event_name', 'from', 'to', 'specific_days', 'month'
     ];
 
     protected $casts = [

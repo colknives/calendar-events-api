@@ -39,14 +39,14 @@ class CreateEvent extends AbstractCalendarEvent
     {
         $data = [
             'uuid' => Uuid::uuid4()->toString(),
+            'month' => $this->request->post('month'),
             'event_name' => $this->request->post('event_name'),
             'from' => $this->request->post('from'),
             'to' => $this->request->post('to'),
-            'specific_days' => $this->request->post('specific_days'),
-            'color' => $this->request->post('color')
+            'specific_days' => $this->request->post('specific_days')
         ];
 
-        $create = $this->repository->create($data);
+        $create = $this->repository->updateOrCreate($data);
 
         if( !$create ){
             $this->response = $this->makeResponse(400, 'save.400');

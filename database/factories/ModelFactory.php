@@ -23,10 +23,10 @@ $factory->define(Event::class, function (Faker $faker) {
     
     return [
         'uuid' => $faker->uuid,
+        'month' => strtolower($date->format('F')),
         'event_name' => $faker->name,
         'from' => $date->format('Y-m-d'),
         'to' => $date->addDays(7)->format('Y-m-d'),
-        'specific_days' => '["monday","tuesday","wednesday","thursday","friday","saturday","sunday"]',
-        'color' => $faker->hexColor
+        'specific_days' => '["monday","tuesday","wednesday","thursday","friday","saturday","sunday"]'
     ];
 });

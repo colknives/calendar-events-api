@@ -56,20 +56,18 @@ class EventController extends AbstractBaseController
     public function list(Request $request)
     {
         $this->validate($request, [
-            'month' => 'valid_month'
+            'month' => 'integer|min:1|max:12',
+            'year'  => 'integer|digits:4'
         ],
         [
             'month.valid_month' => 'Month is invalid'
         ]);
 
-        $event = $this->eventService->getEvents();
-
-        //Prepare collection
-        $collection = $this->prepareCollection(new EventCollection($event->list));
+        $list = $this->eventService->getEvents();
 
         return response()->json([
-            "message" => $event->message,
-            "events" => $collection['data']
-        ], $event->status);
+            "message" => $list->message,
+            "events" => $list->events
+        ], $list->status);
     }
 }

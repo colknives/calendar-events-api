@@ -21,7 +21,7 @@ class Event extends JsonResource
             'from' => $this->from,
             'to' => $this->to,
             'specific_days' => $this->specific_days,
-            'color' => $this->color
+            'month' => $this->month
         ];
     }
 }

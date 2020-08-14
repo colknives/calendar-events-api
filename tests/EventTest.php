@@ -14,11 +14,11 @@ class EventTest extends TestCase
         $event = factory(Event::class)->make();
         
         $response = $this->post('event/save', [
+            'month' => $event->month,
             'event_name' => $event->event_name,
             'from' => $event->from,
             'to' => $event->to,
-            'specific_days' => $event->specific_days,
-            'color' => $event->color
+            'specific_days' => $event->specific_days
         ]);
         $response->assertResponseStatus(200);
         $response->seeJsonStructure([
@@ -36,7 +36,7 @@ class EventTest extends TestCase
     {
         $event = factory(Event::class, 5)->create();
         
-        $response = $this->get('event/list?month=august');
+        $response = $this->get('event/list?month=8&year=2020');
         $response->assertResponseStatus(200);
         $response->seeJsonStructure([
             'message',

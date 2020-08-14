@@ -48,7 +48,20 @@ class EventRepository {
      */
     public function update(Model $model, array $data)
     {
-        return $model->update($data);
+        return $this->model->update($data);
+    }
+
+    public function updateOrCreate(array $data)
+    {
+        return $this->model->updateOrCreate([
+            'month' => $data['month']
+        ],[
+            'uuid' => $data['uuid'],
+            'event_name' => $data['event_name'],
+            'from' => $data['from'],
+            'to' => $data['to'],
+            'specific_days' => $data['specific_days']
+        ]);
     }
 
     /**
@@ -57,15 +70,19 @@ class EventRepository {
      * @param string month
      * @return Model
      */
-    public function getEventlist($month = null)
+    public function getEventlist($month = null, $year = null)
     {
         $query = $this->model;
 
         if( $month ){
-            $month = Carbon::parse($month)->format('m');
-            $query = $query->whereMonth('from', $month);
+            $month = strtolower(Carbon::parse($month)->format('F'));
+            $query = $query->where('month', $month);
         }
 
-        return $query->get();
+        if( $year ){
+            $query = $query->whereYear('from', $year);
+        }
+
+        return $query->first();
     }
 }
