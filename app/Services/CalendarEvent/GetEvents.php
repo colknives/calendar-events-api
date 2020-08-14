@@ -58,12 +58,6 @@ class GetEvents extends AbstractCalendarEvent
         //Get event list
         $events = $this->repository->getEventlist($this->monthName, $this->year);
 
-        if( !$events ){
-            $this->response = $this->makeResponse(200, 'list.200');
-            $this->response->events = $events;
-            return $this;
-        }
-
         $dates = [];
         $firstDay = Carbon::parse($this->year . '-0' . $this->month . '-01')->format('Y-m-d');
         $daysInMonth = Carbon::parse($firstDay)->daysInMonth;
@@ -72,10 +66,7 @@ class GetEvents extends AbstractCalendarEvent
         while( $firstDay <= $lastDay ){
 
             $date = Carbon::parse($firstDay);
-            $eventFrom = Carbon::parse($events->from);
-            $eventTo = Carbon::parse($events->to);
-            $specificDays = json_decode($events->specific_days);
-
+            
             $dateRecord = [
                 'date' => $firstDay,
                 'day'  => $date->day,
@@ -83,14 +74,21 @@ class GetEvents extends AbstractCalendarEvent
                 'event_name' => ''
             ];
 
-            if( $eventFrom->lessThanOrEqualTo($date) && $eventTo->greaterThanOrEqualTo($date) ){
-                if( count($specificDays) > 0 ){
-                    if( in_array(strtolower($date->englishDayOfWeek), $specificDays) ){
+            if( $events ){
+
+                $eventFrom = Carbon::parse($events->from);
+                $eventTo = Carbon::parse($events->to);
+                $specificDays = json_decode($events->specific_days);
+
+                if( $eventFrom->lessThanOrEqualTo($date) && $eventTo->greaterThanOrEqualTo($date) ){
+                    if( count($specificDays) > 0 ){
+                        if( in_array(strtolower($date->englishDayOfWeek), $specificDays) ){
+                            $dateRecord['event_name'] = $events->event_name;
+                        }
+                    }
+                    else{
                         $dateRecord['event_name'] = $events->event_name;
                     }
-                }
-                else{
-                    $dateRecord['event_name'] = $events->event_name;
                 }
             }
 
