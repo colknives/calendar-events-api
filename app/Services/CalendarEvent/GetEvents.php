@@ -78,10 +78,10 @@ class GetEvents extends AbstractCalendarEvent
 
                 $eventFrom = Carbon::parse($events->from);
                 $eventTo = Carbon::parse($events->to);
-                $specificDays = json_decode($events->specific_days);
+                $specificDays = $events->specific_days;
 
                 if( $eventFrom->lessThanOrEqualTo($date) && $eventTo->greaterThanOrEqualTo($date) ){
-                    if( count($specificDays) > 0 ){
+                    if( $specificDays && count($specificDays) > 0 ){
                         if( in_array(strtolower($date->englishDayOfWeek), $specificDays) ){
                             $dateRecord['event_name'] = $events->event_name;
                         }
