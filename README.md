@@ -1,24 +1,32 @@
-# Lumen PHP Framework
+# Calendar Event API
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+## Introduction
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+This project is a simple API where you can add calendar events which uses Lumen, a laravel framework for microservices and API
 
-## Official Documentation
+## Server Requirements
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+1. [MySQL >= 15.1](https://www.mysql.com/)
+2. [PHP >= 7.2](https://www.php.net/)
 
-## Contributing
+## Install
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+To install, download or clone this repository.
 
-## Security Vulnerabilities
+Run the following command in command line within the cloned project to install all vendor
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+	composer install
 
-## License
+Create .env file and copy and fill up the details base on the .env.example file
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Run the following command in command line within the cloned project to create the necessary tables to your project
+
+	php artisan migrate
+
+Finally, run the following command in command line within the cloned project to run the API
+
+	php -S localhost:8000 -t public
+
+## Reference
+
+1. [Lumen](https://lumen.laravel.com/)
